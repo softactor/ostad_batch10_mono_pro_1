@@ -1,0 +1,24 @@
+/* Simple custom styles for the demo */
+body {
+  background-color: #ffffff;
+  color: #222;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+.card-img-top {
+  object-fit: cover;
+  height: 180px;
+}
+
+/* Small responsive tweak for hero on very small screens */
+@media (max-width: 576px) {
+  .display-5 { font-size: 1.6rem; }
+}
+
+/* small spacing for fixed alerts created by JS */
+.alert-fixed {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 1055;
+}

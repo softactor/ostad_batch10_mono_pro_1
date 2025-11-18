@@ -11,72 +11,78 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function(){
 
-    $title = 'Laravel learning - Batch 10';
-    $heading = 'Welcome to our awesome Class!';
 
-    $withHtml = "<b>This is Another Heading</b>";
-    $withHtml.= "<p>";
-    $withHtml.= "lorem ipsome .......";
-    $withHtml.= "</p>";
+    $products = (object)[
+        (object)[
+            'id' => 1,
+            'title' => 'Product 1',
+            'short_description' => 'Product 1 short descriptions',
+            'product_image' => 'https://placehold.co/600x400?text=Product+1',
+            'price' => 99.99
+        ],
+        (object)[
+            'id' => 2,
+            'title' => 'Product 2',
+            'short_description' => 'Product 2 short descriptions',
+            'product_image' => 'https://placehold.co/600x400?text=Product+2',
+            'price' => 80.99
+        ],
+        (object)[
+            'id' => 3,
+            'title' => 'Product 3',
+            'short_description' => 'Product 3 short descriptions',
+            'product_image' => 'https://placehold.co/600x400?text=Product+3',
+            'price' => 70.99
+        ],
+        (object)[
+            'id' => 4,
+            'title' => 'Product 4',
+            'short_description' => 'Product 4 short descriptions',
+            'product_image' => 'https://placehold.co/600x400?text=Product+4',
+            'price' => 60.99
+        ],
+        (object)[
+            'id' => 5,
+            'title' => 'Product 5',
+            'short_description' => 'Product 5 short descriptions',
+            'product_image' => 'https://placehold.co/600x400?text=Product+5',
+            'price' => 100
+        ],
+        (object)[
+            'id' => 6,
+            'title' => 'Product 6',
+            'short_description' => 'Product 6 short descriptions',
+            'product_image' => 'https://placehold.co/600x400?text=Product+6',
+            'price' => 200
+        ],
+        (object)[
+            'id' => 7,
+            'title' => 'Product 7',
+            'short_description' => 'Product 7 short descriptions',
+            'product_image' => 'https://placehold.co/600x400?text=Product+7',
+            'price' => 350
+        ],
+    ];
 
-    // return view('welcome', [
-    //     'title' => $title,
-    //     'heading' => $heading,
-    // ]);
 
-    return view('welcome', compact('title', 'heading', 'withHtml'));
+    return view('frontend.home', compact('products'));
 
 });
 
+Route::get('/about', function(){
 
-Route::get('/day/{number}', function($number){
-
-    $title = 'Laravel learning - Batch 10';
-    $heading = 'Switch Case';
-
-    $days = [
-        1 => 'Sunday',
-        2 => 'Monday',
-        3 => 'Tuesday',
-        4 => 'Wednesday',
-        5 => 'Thursday',
-        6 => 'Friday',
-        7 => 'Saturday',
-    ];   
-
-
-    $day = $days[$number] ?? 'NA';
-
-    return view('switch_day', compact('title', 'heading', 'number', 'day'));
-
+    return view('frontend.about');
 
 });
 
+Route::get('/product', function(){
 
-Route::get('/about', function(){   
-
-
-    $day = 'Fri';//date('D');
-
-    $title = 'Laravel learning - Batch 10';
-    $heading = 'Welcome to About Us';
-
-    return view('about', compact('title', 'heading', 'day'));
-
+    return view('frontend.product');
 
 });
 
+Route::get('/contact', function(){
 
-Route::get('/loop', function(){   
-
-
-    $days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Fidayday', 'Saturday'];
-
-
-    $title = 'Laravel learning - Batch 10';
-    $heading = 'Welcome to Loop';
-
-    return view('loop', compact('title', 'heading', 'days'));
-
+    return view('frontend.contact');
 
 });
