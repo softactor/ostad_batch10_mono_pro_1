@@ -2,8 +2,9 @@
 
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
-
-
+use App\Models\Order;
+use App\Models\Profile;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
@@ -84,5 +85,23 @@ Route::get('/product', function(){
 Route::get('/contact', function(){
 
     return view('frontend.contact');
+
+});
+
+Route::get('/profile/{user_id}', function($userId){
+
+    // $user = User::with('profile', 'orders')->find($userId);
+
+    // $profile = $user->profile;
+
+    // dd($profile);
+
+
+    // $profile = Profile::find(1);
+    $order = Order::with('user')->find(2);
+
+    $user = $order->user;
+
+    dd($user);
 
 });
