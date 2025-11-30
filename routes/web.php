@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Log\LogController;
+use App\Http\Controllers\SessionController;
 use App\Models\Order;
 use App\Models\Profile;
 use App\Models\User;
@@ -105,3 +107,24 @@ Route::get('/profile/{user_id}', function($userId){
     dd($user);
 
 });
+
+
+/**
+ * 
+ * Log Demo Route
+ * 
+ */
+Route::get('/log-demo', [LogController::class, 'logDemo']);
+Route::get('/log-user-create', [LogController::class, 'userProcess']);
+
+
+/**
+ * Session guide
+ */
+
+
+Route::get('/session', [SessionController::class, 'index'])->name('session-index');
+Route::get('/session/set', [SessionController::class, 'setSession'])->name('session-set');
+Route::get('/session/get', [SessionController::class, 'getSession']);
+Route::get('/session/delete', [SessionController::class, 'deleteSession']);
+Route::get('/session/flash', [SessionController::class, 'flasSession']);
