@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\AdminProductController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Log\LogController;
@@ -128,3 +130,19 @@ Route::get('/session/set', [SessionController::class, 'setSession'])->name('sess
 Route::get('/session/get', [SessionController::class, 'getSession']);
 Route::get('/session/delete', [SessionController::class, 'deleteSession']);
 Route::get('/session/flash', [SessionController::class, 'flasSession']);
+
+
+
+/**
+ * 
+ * Admin Route
+ * 
+ */
+
+Route::get('/admin/dashboard',[AdminDashboardController::class, 'dashboard'])->name('admin-dashboard');
+
+/**
+ * All product route:
+ */
+Route::get('/admin/product',[AdminProductController::class, 'index'])->name('admin.product.list');
+Route::get('/admin/product/create',[AdminProductController::class, 'create'])->name('admin.product.create');
