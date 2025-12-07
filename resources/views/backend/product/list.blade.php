@@ -9,37 +9,40 @@
 
         <a href="{{ route('admin.product.create') }}">New Product</a>
 
-
+        @if($products->isNotEmpty())
         <table class="table">
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">First</th>
-                    <th scope="col">Last</th>
-                    <th scope="col">Handle</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Code</th>
+                    <th scope="col">Image</th>
+                    <th scope="col">Action</th>
                 </tr>
             </thead>
             <tbody>
+
+                @foreach($products as $product)
+
                 <tr>
                     <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
+                    <td>{{$product->name}}</td>
+                    <td>{{$product->code}}</td>
+                    <td>
+                        <img src="{{ asset('storage/public/products/'.$product->product_image) }}" alt="{{$product->name}}" title="{{$product->name}}" height="100">
+                        
+                    </td>
+                    <td>
+                        <a href="">Edit</a> 
+                        <button type="button" class="btn btn-danger btn-sm">Delete</button>
+                    </td>
                 </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td>John</td>
-                    <td>Doe</td>
-                    <td>@social</td>
-                </tr>
+
+                @endforeach
+
             </tbody>
         </table>
+        @endif
     </div>
 </div>
 
