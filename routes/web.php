@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminCategoryController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\AdminProductController;
 use App\Http\Controllers\ContactController;
@@ -147,3 +148,13 @@ Route::get('/admin/dashboard',[AdminDashboardController::class, 'dashboard'])->n
 Route::get('/admin/product',[AdminProductController::class, 'index'])->name('admin.product.list');
 Route::get('/admin/product/create',[AdminProductController::class, 'create'])->name('admin.product.create');
 Route::post('/admin/product/create',[AdminProductController::class, 'store'])->name('admin.product.create');
+
+
+/**
+ * Category Resource Controller
+ */
+
+Route::prefix('admin')->name('admin.')->group(function(){
+    
+    Route::resource('categories', AdminCategoryController::class);
+});

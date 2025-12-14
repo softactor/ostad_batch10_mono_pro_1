@@ -40,6 +40,12 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="{{ route('admin.categories.index') }}" class="nav-link text-white">
+                                <i class="fas fa-box me-2"></i>
+                                Categories
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="{{ route('admin.product.list') }}" class="nav-link text-white">
                                 <i class="fas fa-box me-2"></i>
                                 Products
@@ -162,11 +168,16 @@
     <!-- Bootstrap JS Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <!-- Your custom JS will be added here -->
     @yield('js')
 
     <!-- Basic sidebar functionality -->
     <script>
+
+        let csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+
         document.addEventListener('DOMContentLoaded', function() {
             // Close sidebar on mobile when clicking a link
             const mobileScreen = window.matchMedia("(max-width: 768px)");
@@ -182,7 +193,53 @@
                 });
             });
         });
+
+        
     </script>
+
+
+    <script>
+
+        function sweetAlert(categoryId){
+
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+                }).then((result) => {
+                if (result.isConfirmed) {
+
+                    fetch("{{ url('/admin/categories/') }}/" + categoryId, {
+                        method:'delete',
+                        headers:{
+                            'X-CSRF-TOKEN': csrfToken,
+                            'Accept':'application/json',
+                            'Content-Type':'application/json',
+                        }                        
+                    })
+
+                    document.getElementById('category_id_'+categoryId).style.display='none'
+
+                    Swal.fire({
+                        title: CategoryId + " Deleted!",
+                        text: "Your file has been deleted.",
+                        icon: "success"
+                    });
+                }
+                });
+        }
+
+        
+
+    </script>
+
+
+
+
 </body>
 
 </html>
