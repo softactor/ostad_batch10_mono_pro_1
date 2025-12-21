@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Middleware\AddFooter;
+use App\Http\Middleware\CheckAdmin;
 use App\Http\Middleware\CheckCountry;
 use App\Http\Middleware\CheckTime;
 use Illuminate\Foundation\Application;
@@ -15,6 +16,7 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->alias([
+            'checkadmin' => CheckAdmin::class,
             'check.country' => CheckCountry::class,
             'check.time' => CheckTime::class,
             'add.footer' => AddFooter::class,
