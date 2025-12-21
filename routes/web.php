@@ -158,3 +158,38 @@ Route::prefix('admin')->name('admin.')->group(function(){
     
     Route::resource('categories', AdminCategoryController::class);
 });
+
+
+Route::get('service-test', function(){
+
+    $attendance = app('school.attendance');
+    dd($attendance->markAttendance('Test Student'));
+
+});
+
+
+// middleware checking:
+
+Route::middleware(['check.country:bangladesh', 'check.time'])->prefix('bangladeshi')->name('bangladeshi.')->group(function(){
+
+    Route::get('content', function(){
+
+        return response('Here the Bangladeshi Content!');
+
+    });
+
+
+    Route::get('call/service', function(){
+
+        return response('Bangladeshi call service providers!');
+
+    });
+
+});
+
+
+Route::get('/about/page', function(){
+
+    return '<h1> About Page </h1> <p> This is our abot page ...</p>';
+
+})->middleware('add.footer');
