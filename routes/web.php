@@ -2,10 +2,13 @@
 
 use App\Http\Controllers\Admin\AdminCategoryController;
 use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\AdminOrdersController;
 use App\Http\Controllers\Admin\AdminProductController;
+use App\Http\Controllers\Admin\AdminUsersController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Log\LogController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\SessionController;
 use App\Models\Order;
 use App\Models\Profile;
@@ -140,6 +143,24 @@ Route::get('/session/flash', [SessionController::class, 'flasSession']);
  * 
  */
 
+
+/**
+ * Users data
+ */
+
+Route::get('/users', [AdminUsersController::class, 'getAllusers'])->name('admin.user.list');
+Route::get('/user/{user_id}', [AdminUsersController::class, 'getUser'])->name('admin.user');
+
+
+/**
+ * User orders data
+ */
+
+Route::get('/users-orders', [AdminOrdersController::class, 'getAllusersOrders'])->name('admin.users.orders');
+// Route::get('/user/{user_id}', [AdminOrdersController::class, 'getUser'])->name('admin.user');
+
+
+
 Route::get('/admin/dashboard',[AdminDashboardController::class, 'dashboard'])->name('admin-dashboard');
 
 /**
@@ -193,3 +214,6 @@ Route::get('/about/page', function(){
     return '<h1> About Page </h1> <p> This is our abot page ...</p>';
 
 })->middleware('add.footer');
+
+
+Route::get('notification/send', [NotificationController::class, 'send']);
