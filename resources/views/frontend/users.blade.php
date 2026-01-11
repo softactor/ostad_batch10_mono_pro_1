@@ -67,6 +67,8 @@
                     </tbody>
                   </table>
 
+                  {{ $users->links('pagination::bootstrap-5')  }}
+
                   @endif
 
           </div>

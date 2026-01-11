@@ -220,3 +220,5 @@ Route::get('/about/page', function(){
 Route::get('notification/send', [NotificationController::class, 'send']);
 
 Route::get('/cross-join', [QueryClassController::class, 'crossExample']);
+Route::get('/order-create', [QueryClassController::class, 'order_create']);
+Route::get('/order-update/{userId}/{orderId}', [QueryClassController::class, 'order_updated']);
