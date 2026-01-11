@@ -14,29 +14,31 @@ class OrdersTableSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-        DB::table('orders')->truncate();
-        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+        DB::table('orders')->delete();
 
         $statuses = ['pending', 'completed', 'cancelled'];
-        $orders   = [];
+        $areas = ['Mirpur', 'Dhanmondi', 'Uttara', 'Mohakhali', 'Badda', 'Gulshan', 'Farmgate', 'Motijheel'];
+        $now = now();
 
-        // Users 1–40 will have orders, 41–50 no orders (LEFT JOIN demo)
-        for ($userId = 1; $userId <= 40; $userId++) {
+        $orders = [];
 
-            // Each user has 2–8 orders (✅ অনেক order)
-            $orderCount = rand(2, 8);
+        // Users 1-40 will have orders, Users 41-50 will have NO orders (LEFT JOIN demo)
+        for ($i = 1; $i <= 400; $i++) {
 
-            for ($i = 1; $i <= $orderCount; $i++) {
-                $orders[] = [
-                    'user_id'          => $userId,
-                    'total_amount'     => rand(200, 15000), // ✅ range বড়
-                    'status'           => $statuses[array_rand($statuses)],
-                    'shipping_address' => "House " . rand(1, 200) . ", Road " . rand(1, 60) . ", Dhaka",
-                    'created_at'       => Carbon::now()->subDays(rand(1, 180)),
-                    'updated_at'       => now(),
-                ];
-            }
+            $userId = rand(1, 40);
+
+            $amount = rand(200, 12000); // helpful for group/having examples
+
+            $status = $statuses[array_rand($statuses)];
+
+            $orders[] = [
+                'user_id' => $userId,
+                'total_amount' => number_format($amount, 2, '.', ''),
+                'status' => $status,
+                'shipping_address' => "House " . rand(1, 120) . ", Road " . rand(1, 40) . ", " . $areas[array_rand($areas)] . ", Dhaka",
+                'created_at' => $now->copy()->subDays(rand(0, 120))->subMinutes(rand(0, 1440)),
+                'updated_at' => $now,
+            ];
         }
 
         DB::table('orders')->insert($orders);

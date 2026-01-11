@@ -9,6 +9,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Log\LogController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\QueryClassController;
 use App\Http\Controllers\SessionController;
 use App\Models\Order;
 use App\Models\Profile;
@@ -217,3 +218,5 @@ Route::get('/about/page', function(){
 
 
 Route::get('notification/send', [NotificationController::class, 'send']);
+
+Route::get('/cross-join', [QueryClassController::class, 'crossExample']);
