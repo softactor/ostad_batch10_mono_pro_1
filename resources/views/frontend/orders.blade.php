@@ -34,6 +34,7 @@
                         <th scope="col">User Name</th>
                         <th scope="col">Email</th>
                         <th scope="col">Order date</th>
+                        <th scope="col">Product</th>
                         <th scope="col">Total Amount</th>
                         <th scope="col">Status</th>
                         <th scope="col">Shipping Address</th>
@@ -52,15 +53,16 @@
 
                       <tr>
                         <th scope="row">{{ $sl++ }}</th>
-                        <td>{{ $order->name }}</td>
-                        <td>{{ $order->email }}</td>
-                        <td>{{ $order->order_created_at }}</td>
+                        <td>{{ $order->user->name }}</td>
+                        <td>{{ $order->user->email  }}</td>
+                        <td>{{ $order->created_at }}</td>
+                        <td>{{ $order->product?->name   }}</td>
                         <td>{{ $order->total_amount }}</td>
                         <td>{{ $order->status }}</td>
                         <td>{{ $order->shipping_address }}</td>
                         <td>
                           @php 
-                              $editUrl = url("/user/$order->order_id");
+                              $editUrl = url("/user/$order->id");
                           @endphp
 
                           <a href="{{ $editUrl }}" class="nav-item">Edit</a>

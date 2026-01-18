@@ -27,7 +27,7 @@ class AdminProductController extends Controller
     }
 
 
-    public function store(Request $request) 
+    public function store_(Request $request) 
     {
         // manual validation
         $validator = Validator::make($request->all(), [
@@ -85,4 +85,77 @@ class AdminProductController extends Controller
             ->with('success_message', 'Product has been created successfully');
 
     }
+
+    public function store(Request $request) 
+    {
+        // manual validation
+        $validator = Validator::make($request->all(), [
+            'category_id' => 'required|exists:categories,id',
+            'name' => 'required|string|max:250',
+            'code' => 'required|string|max:100|unique:products,code',
+            'description' => 'nullable|string',
+            'price' => 'required|numeric|min:0',
+            'stock' => 'required|integer|min:0',
+            'product_image' => 'nullable|image|max:650',
+            'is_active' => 'nullable|boolean',
+        ]);
+
+
+        if($validator->fails())
+        {
+            return redirect()
+            ->back()
+            ->withErrors($validator)
+            ->withInput()
+            ->with('error_message', 'Validation Failed');
+        }
+
+
+        // image value
+        $fileName = '';
+
+        if($request->hasFile('product_image'))
+        {   
+            $imageFile = $request->file('product_image');
+            $extension = $imageFile->getClientOriginalExtension();
+
+            $fileName = time().'product-'. uniqid().'.'.$extension;
+
+            $imageFile->storeAs('public/products', $fileName);
+
+        }
+
+        // $product = new Product();
+
+       
+        // $product->category_id = $request->category_id;
+        // $product->name = $request->name;
+        // $product->code = $request->code;
+        // $product->description = $request->description;
+        // $product->price = $request->price;
+        // $product->stock = $request->stock;
+        // $product->product_image = $fileName;
+        // $product->is_active = $request->is_active;
+
+        // $product->save();
+        
+        // Product::create($request->all());
+
+        Product::create([
+            'category_id' => $request->category_id,
+            'name' => $request->name,
+            'code' => $request->code,
+            'description' => $request->description,
+            'price' => $request->price,
+            'stock' => $request->stock,
+            'product_image' => $fileName,
+            'is_active' => $request->is_active,
+        ]);
+
+        return redirect()
+            ->route('admin.product.list')
+            ->with('success_message', 'Product has been created successfully');
+
+    }
+
 }

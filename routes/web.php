@@ -157,7 +157,7 @@ Route::get('/user/{user_id}', [AdminUsersController::class, 'getUser'])->name('a
  * User orders data
  */
 
-Route::get('/users-orders', [AdminOrdersController::class, 'getAllusersOrders'])->name('admin.users.orders');
+Route::get('/admin/users-orders', [AdminOrdersController::class, 'getAllusersOrders'])->name('admin.users.orders');
 // Route::get('/user/{user_id}', [AdminOrdersController::class, 'getUser'])->name('admin.user');
 
 
